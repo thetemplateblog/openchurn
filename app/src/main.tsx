@@ -1,13 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-// Fonts are bundled (Latin only, to keep the single file small) so OpenChurn makes no network requests.
-import "@fontsource/bricolage-grotesque/latin-600.css";
-import "@fontsource/bricolage-grotesque/latin-700.css";
-import "@fontsource/ibm-plex-sans/latin-400.css";
-import "@fontsource/ibm-plex-sans/latin-500.css";
-import "@fontsource/ibm-plex-sans/latin-600.css";
-import "@fontsource/ibm-plex-mono/latin-400.css";
-import "@fontsource/ibm-plex-mono/latin-500.css";
+// Fonts are bundled (Latin, woff2 only) so OpenChurn makes no network requests.
+import "./fonts.css";
 import "./styles.css";
 import { App } from "./App";
 

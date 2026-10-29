@@ -21,13 +21,13 @@ plan is a file you own. Nothing leaves your computer.
 npx openchurn
 ```
 
-This opens OpenChurn in your browser and saves your plan to `~/OpenChurn/plan.json` as you edit. To use another file:
+This starts OpenChurn and prints a link to open in your browser. Your plan saves to `~/OpenChurn/plan.json` as you edit. To use another file:
 
 ```sh
 npx openchurn ./my-plan.json
 ```
 
-Options: `--port 4580` to pick the port, `--no-open` to skip opening the browser. The server only listens on your own
+Option: `--port 4580` to pick the port. The server only listens on your own
 computer (`127.0.0.1`) and only reads and writes the one plan file.
 
 **With nothing installed:** download `openchurn.html` from the [latest release](https://github.com/thetemplateblog/openchurn/releases/latest)
