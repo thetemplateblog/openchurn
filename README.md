@@ -32,7 +32,7 @@ computer (`127.0.0.1`) and only reads and writes the one plan file.
 
 **With nothing installed:** download `openchurn.html` from the [latest release](https://github.com/thetemplateblog/openchurn/releases/latest)
 and double-click it. It works offline. Or use it online at
-[thetemplateblog.github.io/openchurn](https://thetemplateblog.github.io/openchurn/); your plan still stays on your computer.
+[openchurn.com](https://openchurn.com); your plan still stays on your computer.
 
 - In Chrome, Edge, Brave and Opera, choose **Open plan file** or **Save to a file**, and edits save to that file.
 - Safari and Firefox don't let web pages write files. There, your plan is kept in the browser; use **Download plan** to

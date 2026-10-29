@@ -1,6 +1,6 @@
 {
   "name": "openchurn",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Plan bank sign-up bonuses around one paycheck, on your own computer. Your plan is a file you own.",
   "license": "MIT",
   "author": "David Childs",
@@ -9,7 +9,7 @@
     "url": "git+https://github.com/thetemplateblog/openchurn.git",
     "directory": "cli"
   },
-  "homepage": "https://github.com/thetemplateblog/openchurn#readme",
+  "homepage": "https://openchurn.com",
   "bugs": {
     "url": "https://github.com/thetemplateblog/openchurn/issues"
   },

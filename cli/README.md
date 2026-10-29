@@ -78,7 +78,7 @@ Readable JSON with a format version:
 ## No install at all
 
 Download `openchurn.html` from the [latest release](https://github.com/thetemplateblog/openchurn/releases/latest) and
-double-click it, or use it at [thetemplateblog.github.io/openchurn](https://thetemplateblog.github.io/openchurn/). In
+double-click it, or use it at [openchurn.com](https://openchurn.com). In
 Chrome and Edge it saves to a file you choose; in Safari and Firefox it keeps the plan in the browser, with download and
 open.
 
