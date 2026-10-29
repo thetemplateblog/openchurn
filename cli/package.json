@@ -33,7 +33,7 @@
     "node": ">=20.19"
   },
   "scripts": {
-    "build": "rm -rf app && cp -R ../app/dist app",
+    "build": "rm -rf app && cp -R ../app/dist app && rm -f app/CNAME",
     "test": "node --test test/*.test.js"
   },
   "dependencies": {
