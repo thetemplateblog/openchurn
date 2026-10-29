@@ -23,8 +23,14 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run build
-      - run: npm publish -w @openchurn/planner --access public --provenance
-      - run: npm publish -w openchurn --access public --provenance
-      - run: gh release create "$GITHUB_REF_NAME" app/dist-single/openchurn.html --title "OpenChurn $GITHUB_REF_NAME" --generate-notes
+      # Skips a version already on npm (1.0.0 was published by hand, before Trusted Publishing could be set up).
+      - run: |
+          v=$(node -p "require('./packages/planner/package.json').version")
+          if npm view "@openchurn/planner@$v" version >/dev/null 2>&1; then echo "@openchurn/planner@$v is already on npm"; else npm publish -w @openchurn/planner --access public --provenance; fi
+      # Skips a version already on npm (1.0.0 was published by hand, before Trusted Publishing could be set up).
+      - run: |
+          v=$(node -p "require('./cli/package.json').version")
+          if npm view "openchurn@$v" version >/dev/null 2>&1; then echo "openchurn@$v is already on npm"; else npm publish -w openchurn --access public --provenance; fi
+      - run: gh release create "$GITHUB_REF_NAME" app/dist-single/openchurn.html --title "OpenChurn $GITHUB_REF_NAME" --generate-notes || gh release upload "$GITHUB_REF_NAME" app/dist-single/openchurn.html --clobber
         env:
           GH_TOKEN: ${{ github.token }}
