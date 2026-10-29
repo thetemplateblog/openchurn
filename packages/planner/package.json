@@ -1,0 +1,25 @@
+{
+  "name": "@openchurn/planner",
+  "version": "1.0.0",
+  "description": "Plan bank sign-up bonuses around one paycheck: when to open each account, which paychecks go where, and where you'll fall short.",
+  "license": "MIT",
+  "author": "David Childs",
+  "repository": { "type": "git", "url": "git+https://github.com/thetemplateblog/openchurn.git", "directory": "packages/planner" },
+  "homepage": "https://github.com/thetemplateblog/openchurn#readme",
+  "keywords": ["bank bonus", "churning", "direct deposit", "planner", "paycheck"],
+  "type": "module",
+  "sideEffects": false,
+  "exports": { ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" } },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "vitest": "5.0.5"
+  }
+}

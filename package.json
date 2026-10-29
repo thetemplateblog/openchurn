@@ -1,0 +1,14 @@
+{
+  "name": "openchurn-monorepo",
+  "private": true,
+  "type": "module",
+  "workspaces": ["packages/planner", "app", "cli"],
+  "scripts": {
+    "build": "npm run build -w @openchurn/planner && npm run build -w app && npm run build -w openchurn",
+    "test": "npm test -w @openchurn/planner",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "dev": "npm run build -w @openchurn/planner && npm run dev -w app",
+    "start": "npm run build && node cli/bin/openchurn.js"
+  },
+  "engines": { "node": ">=20.19" }
+}
