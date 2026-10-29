@@ -39,4 +39,5 @@ it. CI runs both.
 1. Bump `version` in `packages/planner/package.json` and `cli/package.json`, and `cli`'s dependency on
    `@openchurn/planner` to match.
 2. `npm install`, commit, then `git tag vX.Y.Z && git push --tags`.
-3. The Release workflow tests, builds, publishes both packages to npm and attaches `openchurn.html` to a GitHub Release.
+3. The Release workflow tests, builds, publishes both packages to npm through Trusted Publishing (no token) and attaches
+   `openchurn.html` to a GitHub Release.

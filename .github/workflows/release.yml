@@ -1,5 +1,6 @@
 # Tag a version (git tag v1.0.1 && git push --tags) to publish @openchurn/planner and openchurn to npm and attach
-# openchurn.html to a GitHub Release. Needs an NPM_TOKEN repository secret (an npm automation token).
+# openchurn.html to a GitHub Release. Publishing uses npm Trusted Publishing: each package on npmjs.com trusts this
+# repo's release.yml, so there is no npm token.
 name: Release
 on:
   push:
@@ -17,15 +18,13 @@ jobs:
           node-version: 22
           cache: npm
           registry-url: https://registry.npmjs.org
+      # Trusted Publishing needs npm 11.5.1 or newer.
+      - run: npm install -g npm@11.21.1
       - run: npm ci
       - run: npm test
       - run: npm run build
       - run: npm publish -w @openchurn/planner --access public --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: npm publish -w openchurn --access public --provenance
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: gh release create "$GITHUB_REF_NAME" app/dist-single/openchurn.html --title "OpenChurn $GITHUB_REF_NAME" --generate-notes
         env:
           GH_TOKEN: ${{ github.token }}
