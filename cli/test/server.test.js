@@ -88,3 +88,10 @@ test("serves only the app's own files", async () => {
   const escape = await call("GET", "/%2e%2e/secret.txt");
   assert.notEqual(escape.text, "not for websites");
 });
+
+test("installs nothing else: the planner is bundled into the package", async () => {
+  const pkg = JSON.parse(await readFile(new URL("../package.json", import.meta.url), "utf8"));
+  assert.deepEqual(pkg.dependencies ?? {}, {});
+  assert.ok(pkg.files.includes("vendor"));
+  assert.match(await readFile(new URL("../src/server.js", import.meta.url), "utf8"), /from "\.\.\/vendor\/planner\/index\.js"/);
+});

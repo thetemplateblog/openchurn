@@ -1,6 +1,6 @@
 {
   "name": "openchurn",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Plan bank sign-up bonuses around one paycheck, on your own computer. Your plan is a file you own.",
   "license": "MIT",
   "author": "David Childs",
@@ -27,16 +27,18 @@
   "files": [
     "bin",
     "src",
+    "vendor",
     "app"
   ],
   "engines": {
     "node": ">=20.19"
   },
   "scripts": {
-    "build": "rm -rf app && cp -R ../app/dist app && rm -f app/CNAME",
-    "test": "node --test test/*.test.js"
+    "vendor": "rm -rf vendor && mkdir vendor && cp -R ../packages/planner/dist vendor/planner && rm -f vendor/planner/*.d.ts",
+    "build": "npm run vendor && rm -rf app && cp -R ../app/dist app && rm -f app/CNAME",
+    "test": "npm run vendor && node --test test/*.test.js"
   },
-  "dependencies": {
+  "devDependencies": {
     "@openchurn/planner": "1.0.2"
   }
 }

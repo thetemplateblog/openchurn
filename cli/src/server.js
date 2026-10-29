@@ -4,7 +4,8 @@ import { createServer } from "node:http";
 import { copyFile, mkdir, readFile, rename, stat, writeFile } from "node:fs/promises";
 import { homedir } from "node:os";
 import { dirname, extname, join, resolve, sep } from "node:path";
-import { parsePlanFile } from "@openchurn/planner";
+// The planner is copied into vendor/ at build time, so the package installs nothing else.
+import { parsePlanFile } from "../vendor/planner/index.js";
 
 const TYPES = {
   ".html": "text/html; charset=utf-8",

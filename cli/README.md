@@ -38,8 +38,8 @@ Press Ctrl+C to stop. Requires Node 20.19 or newer.
 - **Completed:** bonuses you've received, totaled by year.
 - **Paychecks:** a payday-by-payday ledger of where each paycheck goes.
 
-The planning rules are the [`@openchurn/planner`](https://www.npmjs.com/package/@openchurn/planner) package, this
-command's only dependency.
+The planning rules are the [`@openchurn/planner`](https://www.npmjs.com/package/@openchurn/planner) package, copied
+into this one when it's built, so installing it installs nothing else.
 
 ## Saving
 
@@ -56,7 +56,7 @@ command's only dependency.
 - It refuses requests whose Host or Origin isn't its own address, so websites you visit can't read or change your plan.
 - It only ever reads and writes the one plan file it was started with; the path never comes from a request.
 - It makes no outgoing network requests and runs no other programs. No analytics, no remote fonts.
-- No install scripts. The app it serves is shipped unminified, so you can read what runs.
+- No dependencies and no install scripts. The app it serves is shipped unminified, so you can read what runs.
 
 ## The plan file
 

@@ -4,3 +4,4 @@ cli/app
 *.log
 .DS_Store
 dist-single
+cli/vendor
