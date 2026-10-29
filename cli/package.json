@@ -1,6 +1,6 @@
 {
   "name": "openchurn",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Plan bank sign-up bonuses around one paycheck, on your own computer. Your plan is a file you own.",
   "license": "MIT",
   "author": "David Childs",
@@ -37,6 +37,6 @@
     "test": "node --test test/*.test.js"
   },
   "dependencies": {
-    "@openchurn/planner": "1.0.1"
+    "@openchurn/planner": "1.0.2"
   }
 }

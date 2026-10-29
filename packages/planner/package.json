@@ -1,6 +1,6 @@
 {
   "name": "@openchurn/planner",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Plan bank sign-up bonuses around one paycheck: when to open each account, which paychecks go where, and where you'll fall short.",
   "license": "MIT",
   "author": "David Childs",
