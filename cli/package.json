@@ -1,21 +1,42 @@
 {
   "name": "openchurn",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Plan bank sign-up bonuses around one paycheck, on your own computer. Your plan is a file you own.",
   "license": "MIT",
   "author": "David Childs",
-  "repository": { "type": "git", "url": "git+https://github.com/thetemplateblog/openchurn.git", "directory": "cli" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thetemplateblog/openchurn.git",
+    "directory": "cli"
+  },
   "homepage": "https://github.com/thetemplateblog/openchurn#readme",
-  "keywords": ["bank bonus", "churning", "direct deposit", "planner", "paycheck"],
+  "bugs": {
+    "url": "https://github.com/thetemplateblog/openchurn/issues"
+  },
+  "keywords": [
+    "bank bonus",
+    "churning",
+    "direct deposit",
+    "planner",
+    "paycheck"
+  ],
   "type": "module",
-  "bin": { "openchurn": "bin/openchurn.js" },
-  "files": ["bin", "src", "app"],
-  "engines": { "node": ">=20.19" },
+  "bin": {
+    "openchurn": "bin/openchurn.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "app"
+  ],
+  "engines": {
+    "node": ">=20.19"
+  },
   "scripts": {
     "build": "rm -rf app && cp -R ../app/dist app",
     "test": "node --test test/*.test.js"
   },
   "dependencies": {
-    "@openchurn/planner": "1.0.0"
+    "@openchurn/planner": "1.0.1"
   }
 }
