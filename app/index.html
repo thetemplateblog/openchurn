@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>OpenChurn · Plan bank bonuses around one paycheck</title>
+    <meta name="description" content="Plan bank sign-up bonuses around one paycheck, on your own computer. Open source." />
+    <script>
+      // The theme chosen in the header, before the first paint.
+      try {
+        var t = localStorage.getItem("openchurn-theme");
+        if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

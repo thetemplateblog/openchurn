@@ -3,3 +3,4 @@ dist
 cli/app
 *.log
 .DS_Store
+dist-single

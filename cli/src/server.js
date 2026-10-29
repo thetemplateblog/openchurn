@@ -2,6 +2,7 @@
 // 127.0.0.1 only and refuses requests that don't come from its own address, so websites can't reach it.
 import { createServer } from "node:http";
 import { copyFile, mkdir, readFile, rename, stat, writeFile } from "node:fs/promises";
+import { homedir } from "node:os";
 import { dirname, extname, join, resolve, sep } from "node:path";
 import { parsePlanFile } from "@openchurn/planner";
 
@@ -62,12 +63,15 @@ export function createPlanServer({ planPath, appDir }) {
   };
 }
 
+/** The path as people read it: ~/OpenChurn/plan.json rather than the full home folder. */
+const display = (path) => (path.startsWith(homedir() + sep) ? "~" + path.slice(homedir().length) : path);
+
 async function readPlan(planPath) {
   try {
     const [text, info] = await Promise.all([readFile(planPath, "utf8"), stat(planPath)]);
-    return { exists: true, path: planPath, mtimeMs: info.mtimeMs, text };
+    return { exists: true, path: planPath, display: display(planPath), mtimeMs: info.mtimeMs, text };
   } catch (e) {
-    if (e.code === "ENOENT") return { exists: false, path: planPath, mtimeMs: null };
+    if (e.code === "ENOENT") return { exists: false, path: planPath, display: display(planPath), mtimeMs: null };
     throw e;
   }
 }

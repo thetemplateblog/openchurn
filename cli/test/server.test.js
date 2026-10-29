@@ -42,7 +42,7 @@ after(async () => {
 test("reports a missing plan file", async () => {
   const r = await call("GET", "/api/plan");
   assert.equal(r.status, 200);
-  assert.deepEqual(r.json(), { exists: false, path: planPath, mtimeMs: null });
+  assert.deepEqual(r.json(), { exists: false, path: planPath, display: planPath, mtimeMs: null });
 });
 
 test("saves a plan, keeps a backup, and refuses to overwrite a file changed on disk", async () => {
