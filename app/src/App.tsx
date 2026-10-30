@@ -184,7 +184,9 @@ export function App() {
         <Planner plan={plan} onChange={onChange} today={today} isExample={isExample} />
 
         <footer className="site">
-          OpenChurn is open source under the MIT license. Plans never leave your computer. For live tracking from your bank
+          OpenChurn is{" "}
+          <a href="https://github.com/thetemplateblog/openchurn" target="_blank" rel="noreferrer">open source on GitHub</a> under the MIT
+          license. Plans never leave your computer. For live tracking from your bank
           accounts, see <a href="https://churntracker.app" target="_blank" rel="noreferrer">ChurnTracker</a>.
         </footer>
       </main>
