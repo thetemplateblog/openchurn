@@ -100,6 +100,10 @@ export function Planner({ plan, onChange, today, isExample }: { plan: PlanInput;
         <div className="section" style={{ gap: 6 }}>
           {isExample ? <span className="chip">Example plan</span> : null}
           <h1>Paycheck rotation</h1>
+          <p className="lede">
+            Plan bank sign-up bonuses around one paycheck.{" "}
+            <a href="https://github.com/thetemplateblog/openchurn" target="_blank" rel="noreferrer">Open source</a>, and your plans stay on your computer.
+          </p>
         </div>
       </header>
 
