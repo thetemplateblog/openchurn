@@ -10,6 +10,21 @@ export interface PaySettings {
   nextPayday: string;
   /** How many paychecks after you submit a direct deposit change it takes effect. */
   switchLead: 0 | 1 | 2;
+  /** Which paydays are split across banks. Only used when the plan is computed with `{ split: true }`. */
+  split?: SplitChoice;
+}
+
+/** Which paydays are split across banks: every payday from `from` on, plus `on`, minus `off` (all YYYY-MM-DD). */
+export interface SplitChoice {
+  from?: string;
+  on?: string[];
+  off?: string[];
+}
+
+/** Options for computing a plan. */
+export interface PlanOptions {
+  /** Honor `pay.split`. Default false: every payday goes whole to one bank. */
+  split?: boolean;
 }
 
 export interface BonusInput {
@@ -20,6 +35,8 @@ export interface BonusInput {
   /** Total deposits needed, in dollars. */
   target: number;
   minDeposits: number;
+  /** Each deposit must be at least this many dollars to count. Missing or 0 means no minimum. */
+  minPerDeposit?: number;
   /** Days after opening to meet the requirements. */
   windowDays: number;
   debitRequired: number;

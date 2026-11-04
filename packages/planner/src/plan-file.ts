@@ -1,6 +1,6 @@
 // Reading and writing a plan as a file: readable JSON with a version number, so the format can change safely.
 import { parseDay, toISODay } from "./dates.js";
-import type { BonusInput, DepositRule, PaySettings, PlanInput } from "./types.js";
+import type { BonusInput, DepositRule, PaySettings, PlanInput, SplitChoice } from "./types.js";
 
 export const PLAN_FILE_VERSION = 1;
 
@@ -51,12 +51,31 @@ function readPay(p: Record<string, unknown>): PaySettings {
   const at = "Your paycheck";
   if (p.freqDays !== 7 && p.freqDays !== 14) throw new Invalid(`${at}: how often must be weekly or every two weeks.`);
   if (p.switchLead !== 0 && p.switchLead !== 1 && p.switchLead !== 2) throw new Invalid(`${at}: switch takes effect must be 0, 1 or 2 paychecks later.`);
-  return {
+  const pay: PaySettings = {
     amount: amount(p.amount, `${at}: amount you can move`),
     freqDays: p.freqDays,
     nextPayday: date(p.nextPayday, `${at}: next payday`),
     switchLead: p.switchLead,
   };
+  if (p.split !== undefined) pay.split = readSplit(p.split, at);
+  return pay;
+}
+
+/** Split choices (spec 024): optional, every date must be real. */
+function readSplit(v: unknown, at: string): SplitChoice {
+  if (!isObject(v)) throw new Invalid(`${at}: split must be an object.`);
+  const split: SplitChoice = {};
+  if (v.from !== undefined && v.from !== "") split.from = date(v.from, `${at}: split from`);
+  const days = (x: unknown, what: string, list: string) => {
+    if (!Array.isArray(x)) throw new Invalid(`${at}: ${list} must be a list of dates.`);
+    return x.map((d) => {
+      if (d === "") throw new Invalid(`${at}: ${what} isn't a valid date.`);
+      return date(d, `${at}: ${what}`);
+    });
+  };
+  if (v.on !== undefined) split.on = days(v.on, "split paydays", "split paydays");
+  if (v.off !== undefined) split.off = days(v.off, "paydays not split", "paydays not split");
+  return split;
 }
 
 function readBonus(raw: unknown, i: number): BonusInput {
@@ -66,7 +85,7 @@ function readBonus(raw: unknown, i: number): BonusInput {
   if (typeof raw.name !== "string") throw new Invalid(`${at}: name must be text.`);
   if (!RULES.includes(raw.rule as DepositRule)) throw new Invalid(`${at}: deposit rule must be "payroll", "ach" or "none".`);
   if (typeof raw.included !== "boolean") throw new Invalid(`${at}: include in plan must be true or false.`);
-  return {
+  const bonus: BonusInput = {
     id: raw.id,
     name: raw.name,
     bonusAmount: amount(raw.bonusAmount, `${at}: bonus`),
@@ -85,6 +104,8 @@ function readBonus(raw: unknown, i: number): BonusInput {
     completedOn: date(raw.completedOn, `${at}: bonus received`),
     included: raw.included,
   };
+  if (raw.minPerDeposit !== undefined) bonus.minPerDeposit = amount(raw.minPerDeposit, `${at}: minimum per deposit`);
+  return bonus;
 }
 
 const isObject = (x: unknown): x is Record<string, unknown> => typeof x === "object" && x !== null && !Array.isArray(x);

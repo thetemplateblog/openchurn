@@ -67,4 +67,27 @@ describe("plan file", () => {
     const r = parsePlanFile(toPlanFile(empty));
     expect(r.ok && r.plan.bonuses).toEqual([]);
   });
+  it("round-trips minimum per deposit and split choices (spec 024)", () => {
+    const plan = clone(EXAMPLE_PLAN);
+    plan.bonuses[0].minPerDeposit = 500;
+    plan.pay.split = { from: "2026-11-26", on: ["2026-11-12"], off: ["2026-12-10"] };
+    const r = parsePlanFile(toPlanFile(plan));
+    expect(r.ok && r.plan).toEqual(plan);
+  });
+
+  it("loads a 1.0 file without the new fields, and doesn't write them when unset", () => {
+    const text = toPlanFile(EXAMPLE_PLAN);
+    expect(text).not.toContain("minPerDeposit");
+    expect(text).not.toContain("split");
+    const r = parsePlanFile(text);
+    expect(r.ok && r.plan.pay.split).toBeUndefined();
+    expect(r.ok && r.plan.bonuses[0].minPerDeposit).toBeUndefined();
+  });
+
+  it("rejects a bad split date or a negative minimum per deposit", () => {
+    expect(error(file((f) => (f.pay.split = { from: "2026-13-40" })))).toBe("Your paycheck: split from isn't a valid date.");
+    expect(error(file((f) => (f.pay.split = { on: ["nope"] })))).toBe("Your paycheck: split paydays isn't a valid date.");
+    expect(error(file((f) => (f.pay.split = { off: "2026-11-26" })))).toBe("Your paycheck: paydays not split must be a list of dates.");
+    expect(error(file((f) => (f.bonuses[0].minPerDeposit = -5)))).toMatch(/minimum per deposit must be a number of 0 or more/);
+  });
 });
