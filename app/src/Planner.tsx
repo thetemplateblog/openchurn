@@ -451,6 +451,7 @@ function RowEditor({ b, message, isFirst, isLast, onChange, onMove, onRemove, to
           <>
             <NumField id={`b-${b.id}-target`} label="Deposits needed ($)" value={b.target} onChange={(v) => onChange({ target: v })} />
             <NumField id={`b-${b.id}-min`} label="Minimum deposits" value={b.minDeposits} onChange={(v) => onChange({ minDeposits: v })} />
+            <NumField id={`b-${b.id}-minper`} label="Minimum per deposit ($)" value={b.minPerDeposit ?? 0} onChange={(v) => onChange({ minPerDeposit: v > 0 ? v : undefined })} />
           </>
         ) : null}
         <NumField id={`b-${b.id}-window`} label="Window (days)" value={b.windowDays} onChange={(v) => onChange({ windowDays: v })} />
