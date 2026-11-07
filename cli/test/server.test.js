@@ -15,7 +15,7 @@ const call = (method, path, { host, origin, body } = {}) =>
     const req = request({ host: "127.0.0.1", port, method, path, headers }, (res) => {
       let data = "";
       res.on("data", (c) => (data += c));
-      res.on("end", () => ok({ status: res.statusCode, text: data, json: () => JSON.parse(data) }));
+      res.on("end", () => ok({ status: res.statusCode, headers: res.headers, text: data, json: () => JSON.parse(data) }));
     });
     req.on("error", fail);
     if (body) req.write(JSON.stringify(body));
@@ -94,4 +94,12 @@ test("installs nothing else: the planner is bundled into the package", async () 
   assert.deepEqual(pkg.dependencies ?? {}, {});
   assert.ok(pkg.files.includes("vendor"));
   assert.match(await readFile(new URL("../src/server.js", import.meta.url), "utf8"), /from "\.\.\/vendor\/planner\/index\.js"/);
+});
+
+test("no other site can show the pages in a frame", async () => {
+  for (const path of ["/", "/api/plan"]) {
+    const res = await call("GET", path);
+    assert.equal(res.headers["x-frame-options"], "DENY", path);
+    assert.equal(res.headers["content-security-policy"], "frame-ancestors 'none'", path);
+  }
 });

@@ -19,6 +19,8 @@ const TYPES = {
   ".json": "application/json",
 };
 const MAX_BODY = 1_000_000;
+// On every response. No other site may show these pages in a frame, so none can trick a click into an edit.
+const HEADERS = { "cache-control": "no-store", "x-frame-options": "DENY", "content-security-policy": "frame-ancestors 'none'" };
 
 /**
  * @param {{ planPath: string, appDir: string }} options  planPath is fixed here and never taken from a request.
@@ -117,7 +119,7 @@ async function serveFile(res, appDir, pathname) {
   }
   try {
     const data = await readFile(file);
-    res.writeHead(200, { "content-type": TYPES[extname(file)] ?? "application/octet-stream", "cache-control": "no-store" });
+    res.writeHead(200, { ...HEADERS, "content-type": TYPES[extname(file)] ?? "application/octet-stream" });
     return res.end(data);
   } catch {
     return send(res, 404, { error: "not_found" });
@@ -125,6 +127,6 @@ async function serveFile(res, appDir, pathname) {
 }
 
 function send(res, status, body) {
-  res.writeHead(status, { "content-type": "application/json", "cache-control": "no-store" });
+  res.writeHead(status, { ...HEADERS, "content-type": "application/json" });
   res.end(JSON.stringify(body));
 }
